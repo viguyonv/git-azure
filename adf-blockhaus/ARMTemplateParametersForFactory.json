@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-blockhaus"
+		},
+		"sql_blockhaus_db_connectionString": {
+			"value": ""
+		},
+		"sa_sablockhaus_properties_typeProperties_url": {
+			"value": "https://sablockhaus.dfs.core.windows.net/"
+		},
+		"mpe-sa-blockhaus_properties_privateLinkResourceId": {
+			"value": "/subscriptions/cee17267-c30c-48f9-a5bc-e7ebce4f7890/resourceGroups/rg-blockhaus/providers/Microsoft.Storage/storageAccounts/sablockhaus"
+		},
+		"mpe-sa-blockhaus_properties_groupId": {
+			"value": "dfs"
+		},
+		"mpe-sql-blockhaus_properties_privateLinkResourceId": {
+			"value": "/subscriptions/cee17267-c30c-48f9-a5bc-e7ebce4f7890/resourceGroups/rg-blockhaus/providers/Microsoft.Sql/servers/sql-blockhaus"
+		},
+		"mpe-sql-blockhaus_properties_groupId": {
+			"value": "sqlServer"
+		}
+	}
+}

@@ -1,0 +1,84 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-blockhaus"
+		},
+		"sql_blockhaus_db_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sql_blockhaus_db'"
+		},
+		"sa_sablockhaus_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://sablockhaus.dfs.core.windows.net/"
+		},
+		"mpe-sa-blockhaus_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/cee17267-c30c-48f9-a5bc-e7ebce4f7890/resourceGroups/rg-blockhaus/providers/Microsoft.Storage/storageAccounts/sablockhaus"
+		},
+		"mpe-sa-blockhaus_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dfs"
+		},
+		"mpe-sql-blockhaus_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/cee17267-c30c-48f9-a5bc-e7ebce4f7890/resourceGroups/rg-blockhaus/providers/Microsoft.Sql/servers/sql-blockhaus"
+		},
+		"mpe-sql-blockhaus_properties_groupId": {
+			"type": "string",
+			"defaultValue": "sqlServer"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-blockhaus_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"sql_blockhaus_db_connectionString": {
+						"value": "[parameters('sql_blockhaus_db_connectionString')]"
+					},
+					"mpe-sa-blockhaus_properties_privateLinkResourceId": {
+						"value": "[parameters('mpe-sa-blockhaus_properties_privateLinkResourceId')]"
+					},
+					"mpe-sa-blockhaus_properties_groupId": {
+						"value": "[parameters('mpe-sa-blockhaus_properties_groupId')]"
+					},
+					"mpe-sql-blockhaus_properties_privateLinkResourceId": {
+						"value": "[parameters('mpe-sql-blockhaus_properties_privateLinkResourceId')]"
+					},
+					"mpe-sql-blockhaus_properties_groupId": {
+						"value": "[parameters('mpe-sql-blockhaus_properties_groupId')]"
+					},
+					"sa_sablockhaus_properties_typeProperties_url": {
+						"value": "[parameters('sa_sablockhaus_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
