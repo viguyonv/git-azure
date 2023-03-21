@@ -1,0 +1,16 @@
+{
+	"name": "sql_blockhaus_db",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_blockhaus_db",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "sys",
+			"table": "tables"
+		}
+	}
+}
