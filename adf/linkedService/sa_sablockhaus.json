@@ -1,0 +1,14 @@
+{
+	"name": "sa_sablockhaus",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://sablockhaus.dfs.core.windows.net/"
+		},
+		"connectVia": {
+			"referenceName": "VNET-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
