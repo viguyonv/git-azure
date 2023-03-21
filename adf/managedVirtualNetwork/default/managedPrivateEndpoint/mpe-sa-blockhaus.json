@@ -1,0 +1,7 @@
+{
+	"name": "mpe-sa-blockhaus",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/cee17267-c30c-48f9-a5bc-e7ebce4f7890/resourceGroups/rg-blockhaus/providers/Microsoft.Storage/storageAccounts/sablockhaus",
+		"groupId": "dfs"
+	}
+}
