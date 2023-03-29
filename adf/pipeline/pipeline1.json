@@ -1,0 +1,32 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/cee17267-c30c-48f9-a5bc-e7ebce4f7890/resourceGroups/rg-blockhaus/providers/Microsoft.PowerBIDedicated/capacities/powerbiembedded/suspend?api-version=2021-01-01')",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"authentication": {
+						"type": "ServicePrincipal",
+						"userTenant": "fd23b9f2-d676-4415-9e84-6ba68fc6ec3b"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
