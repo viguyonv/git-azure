@@ -1,0 +1,10 @@
+{
+	"name": "kv_blockhaus",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kv-blockhaus.vault.azure.net/"
+		}
+	}
+}
