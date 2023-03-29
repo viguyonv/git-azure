@@ -8,6 +8,9 @@
 		"sql_blockhaus_db_connectionString": {
 			"value": ""
 		},
+		"kv_blochaus_properties_typeProperties_baseUrl": {
+			"value": "https://kv-blockhaus.vault.azure.net/"
+		},
 		"sa_sablockhaus_properties_typeProperties_url": {
 			"value": "https://sablockhaus.dfs.core.windows.net/"
 		},
