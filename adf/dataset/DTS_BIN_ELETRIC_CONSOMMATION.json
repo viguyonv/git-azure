@@ -5,6 +5,17 @@
 			"referenceName": "LS_ADLS_VIGUYONV",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"p_filesystem": {
+				"type": "string"
+			},
+			"p_directory": {
+				"type": "string"
+			},
+			"p_filename": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "ELECTRIC"
 		},
@@ -13,8 +24,18 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "consommation.csv",
-				"fileSystem": "eletric"
+				"fileName": {
+					"value": "@dataset().p_filename",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().p_directory",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().p_filesystem",
+					"type": "Expression"
+				}
 			}
 		}
 	}
