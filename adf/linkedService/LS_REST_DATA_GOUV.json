@@ -1,0 +1,12 @@
+{
+	"name": "LS_REST_DATA_GOUV",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://www.data.gouv.fr/fr/datasets/r/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
