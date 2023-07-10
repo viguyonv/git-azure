@@ -25,9 +25,14 @@
 						}
 					},
 					"sink": {
-						"type": "BinarySink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -43,8 +48,13 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DTS_BIN_ELETRIC_CONSOMMATION",
-						"type": "DatasetReference"
+						"referenceName": "DTS_FLAT_ELETRIC_CONSOMMATION",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_filesystem": "electric",
+							"p_foldername": "raw\\consommation",
+							"p_filename": "consommation.csv"
+						}
 					}
 				]
 			}
