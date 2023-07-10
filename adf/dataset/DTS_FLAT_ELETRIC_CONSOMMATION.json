@@ -5,6 +5,17 @@
 			"referenceName": "LS_ADLS_VIGUYONV",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"p_filesystem": {
+				"type": "string"
+			},
+			"p_foldername": {
+				"type": "string"
+			},
+			"p_filename": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "ELECTRIC"
 		},
@@ -12,7 +23,19 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().p_filename",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().p_foldername",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().p_filesystem",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
