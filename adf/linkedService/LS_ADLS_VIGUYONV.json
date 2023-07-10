@@ -1,0 +1,10 @@
+{
+	"name": "LS_ADLS_VIGUYONV",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adlsviguyonv.dfs.core.windows.net/"
+		}
+	}
+}
