@@ -1,0 +1,21 @@
+{
+	"name": "DTS_BIN_ELETRIC_CONSOMMATION",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_VIGUYONV",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ELECTRIC"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "consommation.csv",
+				"fileSystem": "eletric"
+			}
+		}
+	}
+}
