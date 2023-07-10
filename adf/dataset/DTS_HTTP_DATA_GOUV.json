@@ -1,0 +1,28 @@
+{
+	"name": "DTS_HTTP_DATA_GOUV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_HTTP_DATA_GOUV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_relative_url": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ELECTRIC"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().p_relative_url",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
