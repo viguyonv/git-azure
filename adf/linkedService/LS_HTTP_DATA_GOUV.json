@@ -1,0 +1,12 @@
+{
+	"name": "LS_HTTP_DATA_GOUV",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://www.data.gouv.fr/fr/datasets/r/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
