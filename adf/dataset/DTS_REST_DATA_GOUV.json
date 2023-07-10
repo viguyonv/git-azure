@@ -1,0 +1,27 @@
+{
+	"name": "DTS_REST_DATA_GOUV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_REST_DATA_GOUV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_relative_url": {
+				"type": "string",
+				"defaultValue": "p_relative_url"
+			}
+		},
+		"folder": {
+			"name": "ELECTRIC"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().p_relative_url",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
