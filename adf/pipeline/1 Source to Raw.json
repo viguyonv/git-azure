@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "1 Source to Raw",
 	"properties": {
 		"activities": [
 			{
