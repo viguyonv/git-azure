@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy From REST to ADLS",
+				"name": "Copy From HTTP to ADLS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
