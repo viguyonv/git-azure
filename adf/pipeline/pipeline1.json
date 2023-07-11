@@ -1,0 +1,63 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy From HTTP to ADLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DTS_HTTP_DATA_GOUV",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_relative_url": "5d016174-9c00-47e1-829a-e055c5458ec7"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DTS_BIN_ELETRIC_CONSOMMATION",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_filesystem": "electric",
+							"p_directory": "raw\\consommation",
+							"p_filename": "consommation.csv"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "ELECTRIC"
+		},
+		"annotations": []
+	}
+}
