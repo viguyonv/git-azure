@@ -20,7 +20,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/electric/Untitled Notebook 2023-07-10 15:09:04"
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_DATABRICKS",
+					"type": "LinkedServiceReference"
+				}
 			},
 			{
 				"name": "Transform to Dedicated",
