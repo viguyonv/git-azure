@@ -1,10 +1,50 @@
 {
-	"name": "LOAD DATA TO RAW",
+	"name": "2 Raw to Enriched",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy From HTTP to ADLS",
-				"type": "Copy",
+				"name": "Transform to Enriched",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Start Cluster If state is not running",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			},
+			{
+				"name": "Transform to Dedicated",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Transform to Enriched",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			},
+			{
+				"name": "Get Cluster State",
+				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,46 +55,89 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "BinarySource",
-						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET"
-						},
-						"formatSettings": {
-							"type": "BinaryReadSettings"
+					"url": {
+						"value": "@concat('https://',\npipeline().parameters.p_DATABRICKS_HOST,\n'/api/2.0/clusters/get')",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"headers": {
+						"Authorization": {
+							"value": "@concat('Bearer '\n,pipeline().parameters.p_DATABRICKS_TOKEN\n)",
+							"type": "Expression"
 						}
 					},
-					"sink": {
-						"type": "BinarySink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						}
-					},
-					"enableStaging": false
-				},
-				"inputs": [
+					"body": {
+						"value": "@concat('{ \"cluster_id\": \"',pipeline().parameters.p_DATABRICKS_CLUSTER_ID,'\" }')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Start Cluster If state is not running",
+				"type": "IfCondition",
+				"dependsOn": [
 					{
-						"referenceName": "DTS_HTTP_DATA_GOUV",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_relative_url": "5d016174-9c00-47e1-829a-e055c5458ec7"
-						}
+						"activity": "Get Cluster State",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
-				"outputs": [
-					{
-						"referenceName": "DTS_BIN_ELETRIC_CONSOMMATION",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_filesystem": "electric",
-							"p_directory": "raw\\consommation",
-							"p_filename": "consommation.csv"
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@if(equals(activity('Get Cluster State').output.state, 'RUNNING'), 1, 0)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Start Cluster",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat('https://',\npipeline().parameters.p_DATABRICKS_HOST,\n'/api/2.0/clusters/get')",
+									"type": "Expression"
+								},
+								"method": "POST",
+								"headers": {
+									"Authorization": {
+										"value": "@concat('Bearer '\n,pipeline().parameters.p_DATABRICKS_TOKEN\n)",
+										"type": "Expression"
+									}
+								},
+								"body": {
+									"value": "@concat('{ \"cluster_id\": \"',pipeline().parameters.p_DATABRICKS_CLUSTER_ID,'\" }')",
+									"type": "Expression"
+								}
+							}
 						}
-					}
-				]
+					]
+				}
 			}
 		],
+		"parameters": {
+			"p_DATABRICKS_HOST": {
+				"type": "string",
+				"defaultValue": "adb-4678647792941561.1.azuredatabricks.net"
+			},
+			"p_DATABRICKS_TOKEN": {
+				"type": "string",
+				"defaultValue": "dapi2aa77a620a491dd494fb43e69d815103-2"
+			},
+			"p_DATABRICKS_CLUSTER_ID": {
+				"type": "string",
+				"defaultValue": "0710-142838-jmag6q3d"
+			}
+		},
 		"folder": {
 			"name": "ELECTRIC"
 		},
