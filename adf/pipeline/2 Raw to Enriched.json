@@ -93,7 +93,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@if(equals(activity('Get Cluster State').output.state, 'RUNNING'), 1, 0)",
+						"value": "@if(\n    equals(\n        activity('Get Cluster State').output.state\n        , 'RUNNING'\n        )\n    , 1\n    , 0\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -111,7 +111,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "@concat('https://',\npipeline().parameters.p_DATABRICKS_HOST,\n'/api/2.0/clusters/get')",
+									"value": "@concat('https://',\npipeline().parameters.p_DATABRICKS_HOST,\n'/api/2.0/clusters/start')",
 									"type": "Expression"
 								},
 								"method": "POST",
